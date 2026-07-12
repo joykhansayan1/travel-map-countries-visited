@@ -1,6 +1,6 @@
-# Travel Map: Countries Visited — website
+# World Map: Countries Visited — website
 
-Static GitHub Pages site for the iOS app **Travel Map: Countries Visited** — *Been There World Map Tracker* (iOS 17+, iPhone and iPad).
+Static GitHub Pages site for the iOS app **World Map: Countries Visited** — *Been There World Map Tracker* (iOS 17+, iPhone and iPad).
 
 Live at <https://joykhansayan1.github.io/travel-map-countries-visited/>
 
