@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Travel Map: Countries Visited</title>
+<meta name="description" content="Support and FAQ for the iOS app Travel Map: Countries Visited. How to mark countries and regions, restore purchases, cancel a subscription, delete your data, and contact the developer.">
+<style>
+  :root{
+    --brand:#0C6E9E;
+    --brand-dark:#0A5477;
+    --brand-tint:#E3F0F7;
+    --teal:#0E8C8C;
+    --gold:#C98A16;
+    --gold-text:#8A5D0B;
+    --gold-tint:#FAF1DE;
+    --text:#0D1B25;
+    --muted:#546675;
+    --bg:#F4F8FA;
+    --card:#FFFFFF;
+    --line:#DDE7ED;
+    --radius:16px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --brand:#4FC3E0;
+      --brand-dark:#4FC3E0;
+      --brand-tint:#0F2A38;
+      --teal:#3FCFC0;
+      --gold:#E8B44C;
+      --gold-text:#E8B44C;
+      --gold-tint:#2B2110;
+      --text:#E7F0F5;
+      --muted:#9AAEBB;
+      --bg:#08131A;
+      --card:#101E28;
+      --line:#22343F;
+    }
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px;line-height:1.65;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px;}
+  a{color:var(--brand-dark);}
+  @media (prefers-color-scheme: dark){a{color:var(--brand);}}
+
+  header.site{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;}
+  header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding-top:14px;padding-bottom:14px;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:var(--text);text-decoration:none;letter-spacing:-0.2px;}
+  .mark{width:28px;height:28px;border-radius:8px;flex:0 0 28px;background:var(--brand);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;}
+  @media (prefers-color-scheme: dark){.mark{color:#08131A;}}
+  nav.site{display:flex;flex-wrap:wrap;gap:4px;}
+  nav.site a{color:var(--muted);text-decoration:none;font-size:15px;font-weight:600;padding:6px 10px;border-radius:8px;}
+  nav.site a:hover{background:var(--brand-tint);color:var(--brand-dark);}
+  nav.site a[aria-current="page"]{color:var(--brand-dark);background:var(--brand-tint);}
+  @media (prefers-color-scheme: dark){nav.site a:hover,nav.site a[aria-current="page"]{color:var(--brand);}}
+
+  .doc{padding:48px 0 8px;}
+  .doc h1{font-size:38px;line-height:1.15;margin:0 0 10px;letter-spacing:-0.8px;font-weight:800;}
+  .doc .lead{color:var(--muted);font-size:19px;margin:0 0 28px;}
+
+  .contact{
+    background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);
+    border-radius:12px;padding:22px;margin:0 0 36px;
+  }
+  .contact h2{margin:0 0 8px;font-size:20px;font-weight:750;}
+  .contact p{margin:0 0 8px;}
+  .contact p:last-child{margin-bottom:0;}
+  .contact .email{font-size:20px;font-weight:700;}
+  .contact .small{font-size:15px;color:var(--muted);}
+
+  section{margin-bottom:36px;}
+  h2.sec{font-size:26px;margin:0 0 6px;letter-spacing:-0.4px;font-weight:750;}
+  p.seclead{color:var(--muted);margin:0 0 18px;}
+
+  .faq{display:grid;gap:14px;}
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;}
+  .qa h3{margin:0 0 8px;font-size:18px;font-weight:700;line-height:1.4;}
+  .qa p{margin:0 0 10px;}
+  .qa p:last-child{margin-bottom:0;}
+  .qa ol,.qa ul{margin:0 0 10px;padding-left:22px;}
+  .qa li{margin-bottom:6px;}
+  .qa .path{
+    display:inline-block;background:var(--brand-tint);color:var(--brand-dark);
+    padding:1px 7px;border-radius:6px;font-weight:600;font-size:15px;
+  }
+  @media (prefers-color-scheme: dark){.qa .path{color:var(--brand);}}
+  .qa a{word-break:break-word;}
+
+  .howto{
+    background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);
+    border-radius:var(--radius);padding:22px;margin-bottom:14px;
+  }
+  .howto h3{margin:0 0 8px;font-size:19px;font-weight:750;}
+  .howto ol{margin:0 0 10px;padding-left:22px;}
+  .howto li{margin-bottom:6px;}
+  .howto p{margin:0 0 10px;}
+  .howto p:last-child{margin-bottom:0;}
+  .howto .path{
+    display:inline-block;background:var(--gold-tint);color:var(--gold-text);
+    padding:1px 7px;border-radius:6px;font-weight:600;font-size:15px;
+  }
+
+  .info{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;}
+  .info dl{margin:0;display:grid;grid-template-columns:1fr;gap:10px;}
+  @media (min-width:620px){.info dl{grid-template-columns:200px 1fr;gap:10px 16px;}}
+  .info dt{font-weight:700;}
+  .info dd{margin:0;color:var(--muted);}
+
+  footer.site{border-top:1px solid var(--line);background:var(--card);margin-top:40px;padding:28px 0;font-size:15px;color:var(--muted);}
+  footer.site .wrap{display:flex;flex-wrap:wrap;gap:10px 18px;justify-content:space-between;align-items:center;}
+  footer.site nav{display:flex;flex-wrap:wrap;gap:14px;}
+  footer.site a{color:var(--muted);text-decoration:none;}
+  footer.site a:hover{color:var(--brand-dark);text-decoration:underline;}
+  @media (prefers-color-scheme: dark){footer.site a:hover{color:var(--brand);}}
+
+  @media (max-width:600px){
+    .doc{padding:32px 0 8px;}
+    .doc h1{font-size:30px;}
+    .doc .lead{font-size:18px;}
+    h2.sec{font-size:22px;}
+    .qa,.howto{padding:18px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="mark" aria-hidden="true">T</span> Travel Map: Countries Visited</a>
+    <nav class="site">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html" aria-current="page">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="doc">
+    <h1>Support</h1>
+    <p class="lead">Help with Travel Map: Countries Visited for iPhone and iPad.</p>
+
+    <div class="contact">
+      <h2>Contact us</h2>
+      <p class="email"><a href="mailto:dmjks120@gmail.com">dmjks120@gmail.com</a></p>
+      <p>We reply to every email, normally <strong>within 2 business days</strong>.</p>
+      <p class="small">To help us answer quickly, tell us your device model, your iOS version, and what you were doing when the problem happened. A screenshot of the map usually helps.</p>
+    </div>
+
+    <section>
+      <h2 class="sec">Frequently asked questions</h2>
+      <p class="seclead">The quick answers to the things people ask most.</p>
+
+      <div class="faq">
+
+        <div class="qa">
+          <h3>How do I mark a country?</h3>
+          <p>Open the <span class="path">Map</span> and tap the country you want. A panel appears with the country's name and three choices — <strong>Visited</strong>, <strong>Lived</strong> and <strong>Wishlist</strong>. Tap the one that applies and the country fills in on the map immediately.</p>
+          <p>Tapping the same status again clears it, so a mis-tap costs you nothing. Pinch to zoom in on small countries and island states before tapping; the smaller the shape, the more it helps to zoom first.</p>
+        </div>
+
+        <div class="qa">
+          <h3>How do I mark a state, province or region?</h3>
+          <p>More than 50 countries are subdivided in the app. Tap the country, then choose to open its <strong>regions</strong> — the map drills in and shows that country's states, provinces or regions as individually tappable shapes. Mark each one exactly as you would a country.</p>
+          <p>This is what lets "I have been to the USA" mean the specific states you actually set foot in, rather than the whole country. Your region count appears on the Passport screen. If a country you want is not subdivided yet, email us and tell us which one — that is how the list grows.</p>
+        </div>
+
+        <div class="qa">
+          <h3>How do I restore my purchase?</h3>
+          <p>Open the app, go to <span class="path">Settings</span> and tap <span class="path">Restore Purchases</span>. Your entitlement is tied to your Apple Account, so this is what you use after getting a new iPhone or iPad, after reinstalling the app, or if the app stops recognising a subscription or Lifetime Access purchase you already own.</p>
+          <p>Make sure you are signed in to the <strong>same Apple Account</strong> that made the original purchase — restoring will not find a purchase made on a different account. You need a connection for this, because the check goes to Apple. If it still does not restore, email <a href="mailto:dmjks120@gmail.com">dmjks120@gmail.com</a>.</p>
+        </div>
+
+        <div class="qa">
+          <h3>How do I cancel my subscription?</h3>
+          <p>Cancellation is handled by Apple, not inside the app. Open <strong>Settings &gt; Apple Account &gt; Subscriptions</strong>, select Travel Map: Countries Visited, and tap Cancel Subscription. The full step-by-step is in the <a href="#manage">Manage or cancel your subscription</a> section below.</p>
+          <p>Cancel <strong>at least 24 hours before</strong> the end of the current period, otherwise the subscription renews. You keep access until the end of the period you have already paid for. <strong>Deleting the app does not cancel the subscription.</strong> Lifetime Access is a one-time purchase and has nothing to cancel.</p>
+        </div>
+
+        <div class="qa">
+          <h3>Is my data private?</h3>
+          <p><strong>Yes.</strong> Everything you mark stays on your device in a local SwiftData store. The app has no accounts, no servers, no analytics SDKs, no ads and no third-party trackers, and it never uploads your countries, regions, trips or notes anywhere. We cannot see your data and we have no way to retrieve it.</p>
+          <p>The app requests <strong>no device permissions at all</strong> — not location, not photos, not contacts, not the camera, not notifications. You will never get a permission prompt from it. The only network request it ever makes is to Apple's StoreKit, to sell or check a purchase, and we never see your payment details.</p>
+          <p>Full details in the <a href="privacy.html">Privacy Policy</a>.</p>
+        </div>
+
+        <div class="qa">
+          <h3>Does it work offline?</h3>
+          <p><strong>Completely.</strong> The entire world map ships inside the app — there are no map tiles to download and no map server to call. You can mark countries on a plane, on a train, in a tent, or with the phone in Airplane Mode, and it all works.</p>
+          <p>The only thing that needs a connection is buying or restoring a purchase, because that check goes to Apple's App Store.</p>
+        </div>
+
+        <div class="qa">
+          <h3>Why is my country's border shaped that way? What about disputed territories?</h3>
+          <p>The boundaries come from <strong><a href="https://www.naturalearthdata.com/">Natural Earth</a></strong>, a public-domain map dataset maintained by the cartographic community. Natural Earth draws borders on a <strong>neutral, de-facto basis</strong> — roughly, as they are administered on the ground, rather than as any one government claims them.</p>
+          <p><strong>The app takes no position on any territorial dispute.</strong> The shapes are a cartographic convenience for logging your own travel; they are not a political statement, a legal claim, or an endorsement of anyone's claim. Where a border is contested, no drawing of it will satisfy everyone, and we are not attempting to adjudicate.</p>
+          <p>If you would rather not see it, <span class="path">Settings</span> has a toggle to <strong>hide disputed-territory shading</strong>. If you believe there is a genuine data error — as opposed to a disagreement about a disputed border — please email us with the specifics and we will look into it.</p>
+        </div>
+
+        <div class="qa">
+          <h3>How do I share my map?</h3>
+          <p>Open the <span class="path">Passport</span> screen and choose to share. The app renders a <strong>map card</strong> image — your filled-in map together with your stats — and hands it to the standard iOS share sheet, where you can save it to Photos, message it, or post it wherever you like.</p>
+          <p>The image is generated entirely on your device. Nothing is uploaded by the app; it only goes where <em>you</em> send it.</p>
+        </div>
+
+        <div class="qa">
+          <h3>How do I delete my data?</h3>
+          <p>Two ways, both instant and both under your control:</p>
+          <ol>
+            <li>Open <span class="path">Settings</span> in the app and use the <strong>delete all data</strong> option. This erases your marked countries, marked regions, trips, notes and preferences from your device straight away.</li>
+            <li>Or simply <strong>delete the app</strong> from your device — its local data store goes with it.</li>
+          </ol>
+          <p>Both are irreversible. Because your data never left the device, we hold no copy and cannot restore it for you. Note that deleting the app does <strong>not</strong> cancel a subscription — cancel that separately in Settings.</p>
+        </div>
+
+        <div class="qa">
+          <h3>Which devices are supported?</h3>
+          <p><strong>iPhone and iPad running iOS 17 or later.</strong> The map, the regions, the 3D globe and the Passport all work on both, and the iPad simply gives you a bigger map to tap.</p>
+          <p>Your purchase is tied to your Apple Account, so a subscription or Lifetime Access bought on your iPhone also unlocks the app on your iPad — tap <span class="path">Restore Purchases</span> there if it does not appear automatically. Your marked map, however, is stored per-device: there is no account and no sync, so the two devices keep separate maps.</p>
+        </div>
+
+        <div class="qa">
+          <h3>Is there a free version?</h3>
+          <p>No. The app is a free download, but it <strong>requires a purchase to use</strong> — there is no free tier. Monthly is US$2.99/month, Yearly is US$12.99/year (about US$1.08/month, with a 3-day free trial for new subscribers), and Lifetime Access is a one-time US$19.99 purchase that never renews. See the <a href="terms.html">Terms of Use</a> for the full subscription terms.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec">Restore Purchases</h2>
+      <p class="seclead">Use this on a new device, after reinstalling, or if the app forgets what you own.</p>
+      <div class="howto">
+        <h3>Step by step</h3>
+        <ol>
+          <li>Make sure your device is <strong>online</strong> — the check goes to Apple.</li>
+          <li>Confirm you are signed in to the <strong>same Apple Account</strong> that made the original purchase (iOS <span class="path">Settings</span> → tap your name at the top).</li>
+          <li>Open <strong>Travel Map: Countries Visited</strong>.</li>
+          <li>Go to <span class="path">Settings</span> inside the app.</li>
+          <li>Tap <span class="path">Restore Purchases</span> and wait for the confirmation.</li>
+        </ol>
+        <p>Restoring cannot find a purchase made on a different Apple Account, and it cannot restore a subscription that has expired or been cancelled. If you own a purchase and it still will not restore, email <a href="mailto:dmjks120@gmail.com">dmjks120@gmail.com</a> — include your device model and iOS version and we will help.</p>
+      </div>
+    </section>
+
+    <section id="manage">
+      <h2 class="sec">Manage or cancel your subscription</h2>
+      <p class="seclead">Subscriptions are managed by Apple, not by us — we cannot cancel one for you.</p>
+      <div class="howto">
+        <h3>On your iPhone or iPad</h3>
+        <ol>
+          <li>Open the iOS <strong>Settings</strong> app.</li>
+          <li>Tap your name at the top to open <span class="path">Apple Account</span>.</li>
+          <li>Tap <span class="path">Subscriptions</span>.</li>
+          <li>Select <strong>Travel Map: Countries Visited</strong>.</li>
+          <li>Tap <strong>Cancel Subscription</strong>, or change your plan between Monthly and Yearly.</li>
+        </ol>
+        <p>You can also go straight there in a browser: <a href="https://apps.apple.com/account/subscriptions">https://apps.apple.com/account/subscriptions</a></p>
+        <p><strong>Cancel at least 24 hours before</strong> the current period ends, or the subscription renews and you are charged for the next period. After cancelling you keep full access until the end of the period you have already paid for.</p>
+        <p><strong>Deleting the app does not cancel your subscription</strong> — you must cancel in Settings. <strong>Lifetime Access</strong> is a one-time purchase: it never renews, and there is nothing to cancel.</p>
+        <p><strong>Refunds</strong> are handled by Apple, not by the developer. Request one at <a href="https://reportaproblem.apple.com/">reportaproblem.apple.com</a>.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec">Map data</h2>
+      <div class="howto">
+        <h3>Where the borders come from</h3>
+        <p>The app's country and region boundaries are drawn from the public-domain <strong><a href="https://www.naturalearthdata.com/">Natural Earth</a></strong> dataset, bundled inside the app. Nothing is fetched from a map server while you use it.</p>
+        <p>Natural Earth's borders are <strong>neutral and de-facto</strong>. The map in this app is <strong>illustrative</strong> — a way to colour in where you have been — and is not authoritative, not for navigation, and not a legal or political reference. <strong>The developer takes no position on any territorial dispute</strong>, and the depiction of any border or territory is not an endorsement of anyone's claim.</p>
+        <p>A toggle in <span class="path">Settings</span> hides disputed-territory shading if you prefer.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="sec">App information</h2>
+      <div class="info">
+        <dl>
+          <dt>App</dt><dd>Travel Map: Countries Visited</dd>
+          <dt>Subtitle</dt><dd>Been There World Map Tracker</dd>
+          <dt>Platform</dt><dd>iOS 17 or later · iPhone and iPad</dd>
+          <dt>Pricing</dt><dd>Free download; requires an In-App Purchase to use. Monthly US$2.99 · Yearly US$12.99 (3-day free trial) · Lifetime US$19.99 one-time</dd>
+          <dt>Privacy</dt><dd>No data collected. No accounts. No permissions requested. Fully offline.</dd>
+          <dt>Developer</dt><dd>MD Shahariar Nazim Joy</dd>
+          <dt>Support email</dt><dd><a href="mailto:dmjks120@gmail.com">dmjks120@gmail.com</a></dd>
+          <dt>Legal</dt><dd><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></dd>
+        </dl>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>© 2026 MD Shahariar Nazim Joy · <a href="mailto:dmjks120@gmail.com">dmjks120@gmail.com</a></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

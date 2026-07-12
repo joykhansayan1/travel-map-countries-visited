@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Travel Map: Countries Visited — iOS app</title>
+<meta name="description" content="Travel Map: Countries Visited is an offline world map for iPhone and iPad. Tap the countries and regions you have been to, drill into states and provinces, and see your travel Passport stats. 100% on-device — no account, no server.">
+<style>
+  :root{
+    --brand:#0C6E9E;
+    --brand-dark:#0A5477;
+    --brand-tint:#E3F0F7;
+    --teal:#0E8C8C;
+    --gold:#C98A16;
+    --gold-text:#8A5D0B;
+    --gold-tint:#FAF1DE;
+    --text:#0D1B25;
+    --muted:#546675;
+    --bg:#F4F8FA;
+    --card:#FFFFFF;
+    --line:#DDE7ED;
+    --radius:16px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --brand:#4FC3E0;
+      --brand-dark:#4FC3E0;
+      --brand-tint:#0F2A38;
+      --teal:#3FCFC0;
+      --gold:#E8B44C;
+      --gold-text:#E8B44C;
+      --gold-tint:#2B2110;
+      --text:#E7F0F5;
+      --muted:#9AAEBB;
+      --bg:#08131A;
+      --card:#101E28;
+      --line:#22343F;
+    }
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px;}
+  a{color:var(--brand-dark);}
+  @media (prefers-color-scheme: dark){a{color:var(--brand);}}
+
+  /* Header */
+  header.site{
+    background:var(--card);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:10;
+  }
+  header.site .wrap{
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    gap:8px;padding-top:14px;padding-bottom:14px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-weight:700;font-size:17px;color:var(--text);text-decoration:none;letter-spacing:-0.2px;
+  }
+  .mark{
+    width:28px;height:28px;border-radius:8px;flex:0 0 28px;
+    background:var(--brand);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:15px;font-weight:800;
+  }
+  @media (prefers-color-scheme: dark){.mark{color:#08131A;}}
+  nav.site{display:flex;flex-wrap:wrap;gap:4px;}
+  nav.site a{
+    color:var(--muted);text-decoration:none;font-size:15px;font-weight:600;
+    padding:6px 10px;border-radius:8px;
+  }
+  nav.site a:hover{background:var(--brand-tint);color:var(--brand-dark);}
+  nav.site a[aria-current="page"]{color:var(--brand-dark);background:var(--brand-tint);}
+  @media (prefers-color-scheme: dark){
+    nav.site a:hover,nav.site a[aria-current="page"]{color:var(--brand);}
+  }
+
+  /* Hero */
+  .hero{padding:64px 0 48px;text-align:center;}
+  .hero .badge{
+    display:inline-block;background:var(--brand-tint);color:var(--brand-dark);
+    font-size:13px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;
+    padding:6px 12px;border-radius:999px;margin-bottom:20px;
+  }
+  @media (prefers-color-scheme: dark){.hero .badge{color:var(--brand);}}
+  .hero h1{
+    font-size:44px;line-height:1.12;margin:0 0 10px;letter-spacing:-1px;font-weight:800;
+  }
+  .hero .sub{
+    font-size:17px;font-weight:700;color:var(--teal);margin:0 0 16px;
+    letter-spacing:0.2px;
+  }
+  .hero p.tagline{font-size:21px;color:var(--muted);margin:0 auto 28px;max-width:640px;}
+  .hero .meta{font-size:15px;color:var(--muted);margin:0;}
+
+  /* Sections */
+  section{padding:36px 0;}
+  h2{font-size:28px;line-height:1.25;margin:0 0 8px;letter-spacing:-0.5px;font-weight:750;}
+  h3{font-size:19px;margin:0 0 6px;font-weight:700;}
+  .lead{color:var(--muted);margin:0 0 24px;}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media (min-width:660px){.grid{grid-template-columns:1fr 1fr;}}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;
+  }
+  .card p{margin:0;color:var(--muted);font-size:16px;}
+  .icon{
+    width:36px;height:36px;border-radius:10px;background:var(--brand-tint);
+    display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:12px;
+  }
+
+  /* Stats */
+  ul.stats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:10px;}
+  @media (min-width:620px){ul.stats{grid-template-columns:1fr 1fr;}}
+  ul.stats li{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline;
+  }
+  ul.stats .label{font-weight:700;color:var(--brand-dark);flex:0 0 auto;font-size:15px;}
+  @media (prefers-color-scheme: dark){ul.stats .label{color:var(--brand);}}
+  ul.stats .what{color:var(--muted);font-size:15px;flex:1 1 140px;}
+
+  /* Pricing */
+  .pricing{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;}
+  .notice{
+    background:var(--gold-tint);border-left:4px solid var(--gold);color:var(--text);
+    padding:14px 16px;border-radius:8px;margin:0 0 22px;font-weight:600;
+  }
+  .plans{display:grid;grid-template-columns:1fr;gap:14px;margin:0;padding:0;list-style:none;}
+  @media (min-width:660px){.plans{grid-template-columns:repeat(3,1fr);}}
+  .plan{border:1px solid var(--line);border-radius:12px;padding:18px;}
+  .plan.best{border-color:var(--gold);background:var(--gold-tint);}
+  .plan .name{font-weight:700;font-size:16px;margin:0 0 4px;}
+  .plan .price{font-size:24px;font-weight:800;color:var(--brand-dark);margin:0 0 4px;letter-spacing:-0.5px;}
+  @media (prefers-color-scheme: dark){.plan .price{color:var(--brand);}}
+  .plan.best .price{color:var(--gold-text);}
+  .plan .note{font-size:14px;color:var(--muted);margin:0;}
+  .fineprint{font-size:14px;color:var(--muted);margin:20px 0 0;}
+
+  ul.plain{margin:0;padding-left:20px;color:var(--muted);}
+  ul.plain li{margin-bottom:8px;}
+
+  /* Footer */
+  footer.site{
+    border-top:1px solid var(--line);background:var(--card);
+    margin-top:40px;padding:28px 0;font-size:15px;color:var(--muted);
+  }
+  footer.site .wrap{display:flex;flex-wrap:wrap;gap:10px 18px;justify-content:space-between;align-items:center;}
+  footer.site nav{display:flex;flex-wrap:wrap;gap:14px;}
+  footer.site a{color:var(--muted);text-decoration:none;}
+  footer.site a:hover{color:var(--brand-dark);text-decoration:underline;}
+  @media (prefers-color-scheme: dark){footer.site a:hover{color:var(--brand);}}
+
+  @media (max-width:600px){
+    .hero{padding:44px 0 32px;}
+    .hero h1{font-size:33px;}
+    .hero p.tagline{font-size:19px;}
+    h2{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="mark" aria-hidden="true">T</span> Travel Map: Countries Visited</a>
+    <nav class="site">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="wrap">
+    <div class="hero">
+      <span class="badge">iOS 17+ · iPhone &amp; iPad</span>
+      <h1>Travel Map: Countries Visited</h1>
+      <p class="sub">Been There World Map Tracker</p>
+      <p class="tagline">An offline world map you fill in by tapping the countries and regions you have actually been to.</p>
+      <p class="meta">No account. No server. Nothing ever leaves your device.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <section>
+      <h2>Colour in the world you have seen</h2>
+      <p class="lead">Open the map, tap a country, mark it. That is the whole idea — a travel record you build with your thumb in a few seconds, and then keep for life.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="icon" aria-hidden="true">🗺</div>
+          <h3>Tap a country, mark it</h3>
+          <p>Tap any country on the world map and mark it <strong>Visited</strong>, <strong>Lived</strong> or <strong>Wishlist</strong>. The map fills in as you go, so your travel history is one glance rather than a spreadsheet.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">📍</div>
+          <h3>Drill into regions</h3>
+          <p>A country is rarely all-or-nothing. Zoom in and mark the individual states, provinces and regions inside <strong>50+ countries</strong> — so "been to the USA" can mean the eleven states you have really set foot in.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">🛂</div>
+          <h3>Your Passport</h3>
+          <p>A dedicated stats screen: countries visited, the percentage of the world you have covered, continents reached, UN member states, and regions marked. Your travels, counted honestly.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">🌍</div>
+          <h3>Rotatable 3D globe</h3>
+          <p>Spin a real globe with your finger and watch your visited countries light up on it. The flat map is for marking; the globe is for looking at what you have done.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">🖼</div>
+          <h3>Shareable map card</h3>
+          <p>Generate a clean image of your map — your countries, your stats — ready to save or send. Made on your device, shared only if you choose to share it.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">✈️</div>
+          <h3>Trips with dates and notes</h3>
+          <p>Log a trip with dates and a note, so the map is not just <em>where</em> but <em>when</em>, and what you want to remember about it.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">📴</div>
+          <h3>100% offline</h3>
+          <p>The whole map ships inside the app. No tiles to download, no connection required — it works on a plane, on a train, and in the middle of nowhere, which is rather the point.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">🔒</div>
+          <h3>No account, no tracking</h3>
+          <p>No sign-up, no analytics SDKs, no ads, no third-party trackers, and not a single device permission requested. Your data lives on your device with SwiftData and nowhere else.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What the Passport counts</h2>
+      <p class="lead">Five numbers, worked out from what you have marked on the map.</p>
+      <ul class="stats">
+        <li><span class="label">Countries visited</span><span class="what">How many you have marked Visited or Lived.</span></li>
+        <li><span class="label">% of the world</span><span class="what">Your share of the world's countries, as a percentage.</span></li>
+        <li><span class="label">Continents</span><span class="what">How many of the continents you have set foot on.</span></li>
+        <li><span class="label">UN member states</span><span class="what">Your count measured against the 193 UN member states.</span></li>
+        <li><span class="label">Regions</span><span class="what">States, provinces and regions marked inside countries.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Pricing</h2>
+      <div class="pricing">
+        <p class="notice">A purchase is required to use this app. There is no free tier, no trial-by-default and no ad-supported mode. The download is free ($0.00) and every feature is behind an In-App Purchase.</p>
+        <ul class="plans">
+          <li class="plan">
+            <p class="name">Monthly</p>
+            <p class="price">US$2.99</p>
+            <p class="note">per month, auto-renewing</p>
+          </li>
+          <li class="plan best">
+            <p class="name">Yearly</p>
+            <p class="price">US$12.99</p>
+            <p class="note">per year, auto-renewing — about US$1.08 a month. Includes a 3-day free trial for new subscribers.</p>
+          </li>
+          <li class="plan">
+            <p class="name">Lifetime Access</p>
+            <p class="price">US$19.99</p>
+            <p class="note">one-time purchase, not a subscription, never renews</p>
+          </li>
+        </ul>
+        <p class="fineprint">
+          Payment is charged to your Apple Account at confirmation of purchase. Subscriptions renew automatically unless auto-renew is turned off at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours prior to the end of the current period. You can manage or cancel your subscription in <strong>Settings &gt; Apple Account &gt; Subscriptions</strong>. If a free trial is offered, any unused portion of it is forfeited when you purchase a subscription. Prices are in US dollars for the U.S. App Store; other storefronts show the equivalent local price. Full details in the <a href="terms.html">Terms of Use</a>.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Your map stays on your iPhone</h2>
+      <p class="lead">This is not a marketing line — it is how the app is built.</p>
+      <ul class="plain">
+        <li>Your countries, regions, trips, dates and notes live in a local SwiftData store on your device.</li>
+        <li>There is no account and no sign-up, because there is no server to sign in to.</li>
+        <li>No analytics SDKs, no advertising, no third-party trackers.</li>
+        <li>The app requests <strong>no device permissions at all</strong> — no camera, contacts, photos, location, microphone or notifications.</li>
+        <li>The app makes no network requests except to Apple's own StoreKit, to check or make a purchase.</li>
+        <li>Purchases are handled entirely by Apple. The developer never sees your payment details.</li>
+        <li>You can erase everything instantly from Settings, or by deleting the app.</li>
+      </ul>
+      <p class="fineprint">Read the full <a href="privacy.html">Privacy Policy</a>.</p>
+    </section>
+
+    <section>
+      <h2>Map data</h2>
+      <div class="card">
+        <p>The country and region boundaries in the app come from <strong><a href="https://www.naturalearthdata.com/">Natural Earth</a></strong>, a public-domain map dataset maintained by the cartographic community. Natural Earth's boundaries are <strong>neutral and de-facto</strong>: they show, as far as possible, the lines as they are administered on the ground rather than as any government claims them to be.</p>
+        <p>The world has borders that are disputed, and no map pleases everyone. <strong>This app takes no position on any territorial dispute.</strong> The shapes you see are a cartographic convenience for logging your own travel — they are not a political statement, a legal claim, or an endorsement of anyone's claim. If a boundary near you is drawn differently from how you would draw it, that is the dataset speaking, not us.</p>
+        <p>If you would rather not see it at all, <strong>Settings</strong> has a toggle to <strong>hide disputed-territory shading</strong> on the map.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Questions?</h2>
+      <p class="lead">Email <a href="mailto:dmjks120@gmail.com">dmjks120@gmail.com</a> and you will usually get a reply within 2 business days. The <a href="support.html">support page</a> answers the most common questions, including how to mark a region, how to restore a purchase and how to cancel.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>© 2026 MD Shahariar Nazim Joy · <a href="mailto:dmjks120@gmail.com">dmjks120@gmail.com</a></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
